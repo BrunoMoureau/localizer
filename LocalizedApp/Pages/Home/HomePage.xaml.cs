@@ -38,7 +38,8 @@ namespace LocalizedApp.Pages.Home
 
         public void OnCultureChanged(object sender, CultureInfo cultureInfo)
         {
-            Trace.WriteLine($"Update culture of {nameof(HomePage)}"); // Not running on UWP without this line ??
+            // todo find why UWP isn't updating displayed texts without this trace line
+            Trace.WriteLine($"Update culture of {nameof(HomePage)}");
 
             GreetingsLabel.Text = AppResources.HomePage_GreetingsText;
             CurrentCultureLabel.Text = AppResources.HomePage_CurrentCultureText;
