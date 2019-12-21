@@ -1,0 +1,122 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Globalization;
+using System.Linq;
+using System.Windows.Input;
+using LocalizedApp.Components.Localizer.Interfaces;
+using LocalizedApp.Models;
+using LocalizedApp.Pages.Home;
+using LocalizedApp.Resources;
+using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
+
+namespace LocalizedApp.Pages.Settings
+{
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class SettingsPage : ILocalizable
+    {
+        public ICommand OptionTappedCommand { get; }
+
+        public SettingsPage()
+        {
+            InitializeComponent();
+            OptionTappedCommand = new Command<Option<string>>(OnCultureOptionSelected);
+
+            FillCultureOptions();
+        }
+
+        private void FillCultureOptions()
+        {
+            var cultureOptions = GetCultureOptions();
+
+            SelectCurrentCultureOption(cultureOptions);
+
+            Trace.WriteLine("Assign culture options to the ListView");
+            CultureListView.ItemsSource = cultureOptions;
+        }
+
+        private static Option<string>[] GetCultureOptions()
+        {
+            Trace.WriteLine("Get new culture options");
+
+            return new[]
+            {
+                new Option<string>(false, "fr", AppResources.SettingsPage_fr_LanguageText),
+                new Option<string>(false, "en-US", AppResources.SettingsPage_en_US_LanguageText, AppResources.SettingsPage_en_US_LanguageDescriptionText),
+                new Option<string>(false, "en", AppResources.SettingsPage_en_LanguageText, AppResources.SettingsPage_en_LanguageDescriptionText),
+            };
+        }
+
+        private void SelectCurrentCultureOption(Option<string>[] cultureOptions)
+        {
+            Trace.WriteLine("Select the current AppResources culture option");
+
+            var currentCulture = AppResources.Culture.Name;
+            var cultureOption = cultureOptions.First(o => string.Equals(o.Value, currentCulture));
+            cultureOption.IsSelected = true;
+        }
+
+        protected override void OnParentSet()
+        {
+            base.OnParentSet();
+
+            if (Parent == null) // Page is removed from navigation stack
+            {
+                App.Localizer.Unsubscribe(this);
+            }
+            else // Page is added to navigation stack
+            {
+                App.Localizer.Subscribe(this);
+            }
+        }
+
+        public void OnCultureChanged(object sender, CultureInfo cultureInfo)
+        {
+            Trace.WriteLine($"Update culture of {nameof(SettingsPage)}");
+
+            Title = AppResources.SettingsPage_TitleText;
+            LanguageSectionLabel.Text = AppResources.SettingsPage_LanguageSectionText;
+            FormatSectionLabel.Text = AppResources.SettingsPage_FormatSectionText;
+            LanguageFormatLabel.Text = AppResources.SettingsPage_LanguageFormatText;
+            DateTimeFormatLabel.Text = $"{DateTime.Now:f}";
+
+            var numberExample = (double)Resources.Values.ElementAt(0);
+            var percentExample = (double)Resources.Values.ElementAt(1);
+            var priceExample = (double)Resources.Values.ElementAt(2);
+
+            NumberFormatLabel.Text = $"{numberExample:N}";
+            PercentFormatLabel.Text = $"{percentExample:P}";
+            PriceFormatLabel.Text = $"{priceExample:C}";
+
+            //todo check why UK display $ as currency
+            //todo check why UWP require a Trace.WriteLine to be able to refresh background page...
+
+            FillCultureOptions();
+        }
+
+        private void OnCultureOptionSelected(Option<string> selectedCultureOption)
+        {
+            if (selectedCultureOption.IsSelected)
+            {
+                Trace.WriteLine("The culture option is already selected");
+                return;
+            }
+
+            var cultureInfo = new CultureInfo(selectedCultureOption.Value);
+            if (CultureListView.ItemsSource is IEnumerable<Option<string>> cultureOptions)
+            {
+                Trace.WriteLine("Unselect all culture options");
+                foreach (Option<string> cultureOption in cultureOptions)
+                {
+                    cultureOption.IsSelected = false;
+                }
+            }
+
+            Trace.WriteLine("The tapped option is now selected");
+            selectedCultureOption.IsSelected = true;
+
+            App.Localizer.SetCultureInfo(cultureInfo);
+        }
+    }
+}

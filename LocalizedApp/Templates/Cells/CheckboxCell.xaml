@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ViewCell xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="LocalizedApp.Templates.Cells.CheckboxCell"
+             x:Name="This"
+             Tapped="OnCellTapped">
+  
+    <ViewCell.View>
+        <FlexLayout
+            Padding="{Binding Source={x:Reference This}, Path=Padding, Mode=OneWay}"
+            InputTransparent="True"
+            Direction="Row"
+            AlignItems="Center">
+            
+            <CheckBox 
+                Margin="0, 0, 20, 0"
+                IsChecked="{Binding Source={x:Reference This}, Path=IsSelected, Mode=OneWay}"/>
+
+            <StackLayout
+                Orientation="Vertical"
+                Spacing="2">
+
+                <Label 
+                    Text="{Binding Source={x:Reference This}, Path=Title, Mode=OneWay}"
+                    FontSize="Body"/>
+
+                <Label
+                    IsVisible="{Binding Source={x:Reference This}, Path=Description, Converter={StaticResource VisibilityConverter}, Mode=OneWay}"
+                    Text="{Binding Source={x:Reference This}, Path=Description, Mode=OneWay}"
+                    FontSize="Caption"/>
+            </StackLayout>
+        </FlexLayout>
+    </ViewCell.View>
+</ViewCell>

@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:res="clr-namespace:LocalizedApp.Resources"
+             mc:Ignorable="d"
+             x:Class="LocalizedApp.Pages.Home.HomePage">
+
+    <FlexLayout
+        Padding="20"
+        Direction="Column"
+        JustifyContent="Center"
+        AlignItems="Center">
+
+        <Label 
+            x:Name="GreetingsLabel"
+            Margin="0,20,0,0"
+            Text="{x:Static res:AppResources.HomePage_GreetingsText}"
+            FontSize="Medium"/>
+        
+        <Label 
+            x:Name="CurrentCultureLabel"
+            Margin="0,20,0,0"
+            Text="{x:Static res:AppResources.HomePage_CurrentCultureText}"
+            FontSize="Body"/>
+
+        <Button 
+            x:Name="SelectCultureButton"
+            Margin="0,40,0,0"
+            Padding="10"
+            Text="{x:Static res:AppResources.HomePage_SelectCultureText}"
+            Clicked="OnNavigationButtonClicked"/>
+    </FlexLayout>
+</ContentPage>
