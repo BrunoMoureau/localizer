@@ -61,7 +61,7 @@ namespace LocalizedApp.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your preferred culture is : en.
+        ///   Looks up a localized string similar to Your preferred culture is : en-GB.
         /// </summary>
         public static string HomePage_CurrentCultureText {
             get {
@@ -88,20 +88,20 @@ namespace LocalizedApp.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to United Kingdom.
+        ///   Looks up a localized string similar to Great Britain.
         /// </summary>
-        public static string SettingsPage_en_LanguageDescriptionText {
+        public static string SettingsPage_en_GB_LanguageDescriptionText {
             get {
-                return ResourceManager.GetString("SettingsPage_en_LanguageDescriptionText", resourceCulture);
+                return ResourceManager.GetString("SettingsPage_en_GB_LanguageDescriptionText", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to English.
         /// </summary>
-        public static string SettingsPage_en_LanguageText {
+        public static string SettingsPage_en_GB_LanguageText {
             get {
-                return ResourceManager.GetString("SettingsPage_en_LanguageText", resourceCulture);
+                return ResourceManager.GetString("SettingsPage_en_GB_LanguageText", resourceCulture);
             }
         }
         

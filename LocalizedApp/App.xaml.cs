@@ -4,13 +4,6 @@ using Xamarin.Forms;
 
 namespace LocalizedApp
 {
-    //todo
-    // read https://docs.microsoft.com/en-us/xamarin/xamarin-forms/app-fundamentals/localization/text?pivots=windows
-    // and support RTL (Right To Left) if possible
-    // + add languages to iOS pList and UWP
-
-
-
     /*
      * Tuto :
      * - Ajouter les ressources dans des resx
@@ -28,7 +21,7 @@ namespace LocalizedApp
 
             // Could provide culture form AppSettings here and
             // update the AppSettings key using CultureChanged event
-            Localizer.SetCulture("en");
+            Localizer.SetCulture("en-US");
 
             MainPage = new NavigationPage(new HomePage());
         }

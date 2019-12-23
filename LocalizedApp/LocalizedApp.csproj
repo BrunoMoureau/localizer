@@ -21,7 +21,7 @@
     <EmbeddedResource Update="Pages\Home\HomePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\AppResources.en.resx">
+    <EmbeddedResource Update="Resources\AppResources.en-gb.resx">
       <Generator></Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\AppResources.fr.resx">

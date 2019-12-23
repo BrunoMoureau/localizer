@@ -1,5 +1,4 @@
-﻿using System.Windows.Input;
-using LocalizedApp.Helpers;
+﻿using LocalizedApp.Helpers;
 
 namespace LocalizedApp.Models
 {

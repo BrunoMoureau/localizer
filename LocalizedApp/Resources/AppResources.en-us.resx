@@ -126,10 +126,10 @@
   <data name="HomePage_SelectCultureText" xml:space="preserve">
     <value>Select another culture</value>
   </data>
-  <data name="SettingsPage_en_LanguageDescriptionText" xml:space="preserve">
-    <value>United Kingdom</value>
+  <data name="SettingsPage_en_GB_LanguageDescriptionText" xml:space="preserve">
+    <value>Great Britain</value>
   </data>
-  <data name="SettingsPage_en_LanguageText" xml:space="preserve">
+  <data name="SettingsPage_en_GB_LanguageText" xml:space="preserve">
     <value>English</value>
   </data>
   <data name="SettingsPage_en_US_LanguageDescriptionText" xml:space="preserve">

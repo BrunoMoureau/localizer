@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="HomePage_CurrentCultureText" xml:space="preserve">
-    <value>Your preferred culture is : en</value>
+    <value>Your preferred culture is : en-GB</value>
   </data>
   <data name="HomePage_GreetingsText" xml:space="preserve">
     <value>Welcome to Xamarin.Forms !</value>
@@ -126,10 +126,10 @@
   <data name="HomePage_SelectCultureText" xml:space="preserve">
     <value>Select another culture</value>
   </data>
-  <data name="SettingsPage_en_LanguageDescriptionText" xml:space="preserve">
-    <value>United Kingdom</value>
+  <data name="SettingsPage_en_GB_LanguageDescriptionText" xml:space="preserve">
+    <value>Great Britain</value>
   </data>
-  <data name="SettingsPage_en_LanguageText" xml:space="preserve">
+  <data name="SettingsPage_en_GB_LanguageText" xml:space="preserve">
     <value>English</value>
   </data>
   <data name="SettingsPage_en_US_LanguageDescriptionText" xml:space="preserve">

@@ -6,7 +6,6 @@ using System.Linq;
 using System.Windows.Input;
 using LocalizedApp.Components.Localizer.Interfaces;
 using LocalizedApp.Models;
-using LocalizedApp.Pages.Home;
 using LocalizedApp.Resources;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -44,7 +43,7 @@ namespace LocalizedApp.Pages.Settings
             {
                 new Option<string>(false, "fr", AppResources.SettingsPage_fr_LanguageText),
                 new Option<string>(false, "en-US", AppResources.SettingsPage_en_US_LanguageText, AppResources.SettingsPage_en_US_LanguageDescriptionText),
-                new Option<string>(false, "en", AppResources.SettingsPage_en_LanguageText, AppResources.SettingsPage_en_LanguageDescriptionText),
+                new Option<string>(false, "en-GB", AppResources.SettingsPage_en_GB_LanguageText, AppResources.SettingsPage_en_GB_LanguageDescriptionText),
             };
         }
 
@@ -52,8 +51,11 @@ namespace LocalizedApp.Pages.Settings
         {
             Trace.WriteLine("Select the current AppResources culture option");
 
-            var currentCulture = AppResources.Culture.Name;
-            var cultureOption = cultureOptions.First(o => string.Equals(o.Value, currentCulture));
+            var cultureOption = 
+                cultureOptions.FirstOrDefault(o => string.Equals(o.Value, AppResources.Culture.Name)) // perfect match (e.g. en-US)
+                ?? cultureOptions.FirstOrDefault(o => string.Equals(o.Value, AppResources.Culture.Parent.Name)) // parent match (e.g. en)
+                ?? cultureOptions.First(o => o.Value.Contains(AppResources.Culture.Name)); // current culture is a parent (e.g. en)
+
             cultureOption.IsSelected = true;
         }
 
@@ -88,9 +90,6 @@ namespace LocalizedApp.Pages.Settings
             NumberFormatLabel.Text = $"{numberExample:N}";
             PercentFormatLabel.Text = $"{percentExample:P}";
             PriceFormatLabel.Text = $"{priceExample:C}";
-
-            //todo check why UK display $ as currency
-            //todo check why UWP require a Trace.WriteLine to be able to refresh background page...
 
             FillCultureOptions();
         }
