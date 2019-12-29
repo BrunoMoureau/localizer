@@ -22,11 +22,11 @@ namespace LocalizedApp.Pages.Home
 
             if (Parent == null) // Page is removed from navigation stack
             {
-                App.Localizer.Unsubscribe(this);
+                DependencyService.Get<ILocalizer>().Unsubscribe(this);
             }
             else // Page is added to navigation stack
             {
-                App.Localizer.Subscribe(this);
+                DependencyService.Get<ILocalizer>().Subscribe(this);
             }
         }
 

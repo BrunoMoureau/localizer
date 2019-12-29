@@ -10,8 +10,6 @@
 
     <Application.Resources>
         <ResourceDictionary>
-            <localizer:Localizer x:Key="Localizer"/>
-
             <converters:VisibilityConverter x:Key="VisibilityConverter"/>
         </ResourceDictionary>
     </Application.Resources>

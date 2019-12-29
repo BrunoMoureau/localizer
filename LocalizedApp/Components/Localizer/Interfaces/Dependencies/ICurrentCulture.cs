@@ -1,6 +1,6 @@
 ﻿namespace LocalizedApp.Components.Localizer.Interfaces.Dependencies
 {
-    public interface ILocalizerService
+    public interface ICurrentCulture
     {
         /// <summary>
         /// Get the user preferred culture if available

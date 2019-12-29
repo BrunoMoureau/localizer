@@ -3,10 +3,10 @@ using Xamarin.Forms;
 
 using LocalizedApp.Droid.Dependencies;
 
-[assembly:Dependency(typeof(LocalizerService))]
+[assembly:Dependency(typeof(CurrentCultureService))]
 namespace LocalizedApp.Droid.Dependencies
 {
-    public class LocalizerService : ILocalizerService
+    public class CurrentCultureService : ICurrentCulture
     {
         public string GetPreferredUserCulture()
         {

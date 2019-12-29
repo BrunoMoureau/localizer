@@ -2,18 +2,25 @@
 using System.Diagnostics;
 using System.Globalization;
 using System.Threading;
+using LocalizedApp.Components.Localizer;
 using LocalizedApp.Components.Localizer.Interfaces;
 using LocalizedApp.Components.Localizer.Interfaces.Dependencies;
 using LocalizedApp.Components.Localizer.Models;
 using LocalizedApp.Resources;
 using Xamarin.Forms;
 
+[assembly: Dependency(typeof(Localizer))]
 namespace LocalizedApp.Components.Localizer
 {
-    public class Localizer
+    public class Localizer : ILocalizer
     {
         private const string CULTURE_CHANGED_MESSAGE = "CultureChanged";
-        public string FallbackCulture { get; set; } = "en";
+        public string FallbackCulture { get; } = "en";
+
+        public Localizer()
+        {
+
+        }
 
         /// <summary>
         /// Subscribe the ILocalizable instance to the culture changes.
@@ -48,7 +55,7 @@ namespace LocalizedApp.Components.Localizer
                 Trace.WriteLine($"Tring to set culture of \"{cultureName}\"");
                 var cultureInfo = new CultureInfo(cultureName);
                 Trace.WriteLine($"\"{cultureName}\" format is valid");
-                SetCultureInfo(cultureInfo);
+                SetCulture(cultureInfo);
             }
             catch (Exception)
             {
@@ -57,16 +64,7 @@ namespace LocalizedApp.Components.Localizer
             }
         }
 
-        private void SetDefaultCulture()
-        {
-            var preferredCulture = DependencyService.Get<ILocalizerService>()?.GetPreferredUserCulture();
-            var culture = string.IsNullOrEmpty(preferredCulture) ? FallbackCulture : preferredCulture;
-
-            var cultureBuilder = new CultureBuilder(culture);
-            SetCultureInfo(cultureBuilder.CultureInfo);
-        }
-
-        public void SetCultureInfo(CultureInfo cultureInfo)
+        public void SetCulture(CultureInfo cultureInfo)
         {
             Trace.WriteLine("Update AppResources culture");
             AppResources.Culture = cultureInfo; // Set the RESX for resource localization
@@ -77,6 +75,15 @@ namespace LocalizedApp.Components.Localizer
 
             Trace.WriteLine("Notify culture changes to subscribed instances");
             MessagingCenter.Send(this, CULTURE_CHANGED_MESSAGE, cultureInfo);
+        }
+        
+        private void SetDefaultCulture()
+        {
+            var preferredCulture = DependencyService.Get<ICurrentCulture>().GetPreferredUserCulture();
+            var culture = string.IsNullOrEmpty(preferredCulture) ? FallbackCulture : preferredCulture;
+
+            var cultureBuilder = new CultureBuilder(culture);
+            SetCulture(cultureBuilder.CultureInfo);
         }
     }
 }

@@ -5,10 +5,10 @@ using LocalizedApp.Components.Localizer.Interfaces.Dependencies;
 using Xamarin.Forms;
 using LocalizedApp.iOS.Dependencies;
 
-[assembly: Dependency(typeof(ResourceLocalizerService))]
+[assembly: Dependency(typeof(CurrentCultureService))]
 namespace LocalizedApp.iOS.Dependencies
 {
-    public class ResourceLocalizerService : ILocalizerService
+    public class CurrentCultureService : ICurrentCulture
     {
         public string GetPreferredUserCulture()
         {

@@ -1,4 +1,4 @@
-﻿using LocalizedApp.Components.Localizer;
+﻿using LocalizedApp.Components.Localizer.Interfaces;
 using LocalizedApp.Pages.Home;
 using Xamarin.Forms;
 
@@ -13,16 +13,13 @@ namespace LocalizedApp
      */
     public partial class App : Application
     {
-        public static Localizer Localizer => (Localizer)Current.Resources["Localizer"];
-
         public App()
         {
             InitializeComponent();
-
-            // Could provide culture form AppSettings here and
-            // update the AppSettings key using CultureChanged event
-            Localizer.SetCulture("en-US");
-
+            
+            // Could provide culture form AppSettings here
+            DependencyService.Get<ILocalizer>().SetCulture("en-US");
+            
             MainPage = new NavigationPage(new HomePage());
         }
 

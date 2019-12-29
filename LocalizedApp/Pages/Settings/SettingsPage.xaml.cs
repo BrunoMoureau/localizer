@@ -65,11 +65,11 @@ namespace LocalizedApp.Pages.Settings
 
             if (Parent == null) // Page is removed from navigation stack
             {
-                App.Localizer.Unsubscribe(this);
+                DependencyService.Get<ILocalizer>().Unsubscribe(this);
             }
             else // Page is added to navigation stack
             {
-                App.Localizer.Subscribe(this);
+                DependencyService.Get<ILocalizer>().Subscribe(this);
             }
         }
 
@@ -115,7 +115,7 @@ namespace LocalizedApp.Pages.Settings
             Trace.WriteLine("The tapped option is now selected");
             selectedCultureOption.IsSelected = true;
 
-            App.Localizer.SetCultureInfo(cultureInfo);
+            DependencyService.Get<ILocalizer>().SetCulture(cultureInfo);
         }
     }
 }
