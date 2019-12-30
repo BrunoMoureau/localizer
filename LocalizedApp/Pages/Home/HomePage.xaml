@@ -13,19 +13,17 @@
         JustifyContent="Center"
         AlignItems="Center">
 
-        <Label 
-            x:Name="GreetingsLabel"
+        <Label
             Margin="0,20,0,0"
             Text="{x:Static res:AppResources.HomePage_GreetingsText}"
             FontSize="Medium"/>
         
-        <Label 
-            x:Name="CurrentCultureLabel"
+        <Label
             Margin="0,20,0,0"
             Text="{x:Static res:AppResources.HomePage_CurrentCultureText}"
             FontSize="Body"/>
 
-        <Image x:Name="FlagImage">
+        <Image>
             <Image.Source>
                 <OnPlatform x:TypeArguments="ImageSource">
                     <On Platform="iOS, Android" Value="flag.png" />
@@ -34,11 +32,7 @@
             </Image.Source>
         </Image>
 
-        <Image x:Name="Test">
-        </Image>
-
-        <Button 
-            x:Name="SelectCultureButton"
+        <Button
             Margin="0,40,0,0"
             Padding="10"
             Text="{x:Static res:AppResources.HomePage_SelectCultureText}"

@@ -6,6 +6,7 @@ using LocalizedApp.Components.Localizer;
 using LocalizedApp.Components.Localizer.Interfaces;
 using LocalizedApp.Components.Localizer.Interfaces.Dependencies;
 using LocalizedApp.Components.Localizer.Models;
+using LocalizedApp.Helpers;
 using LocalizedApp.Resources;
 using Xamarin.Forms;
 
@@ -14,32 +15,11 @@ namespace LocalizedApp.Components.Localizer
 {
     public class Localizer : ILocalizer
     {
-        private const string CULTURE_CHANGED_MESSAGE = "CultureChanged";
-        public string FallbackCulture { get; } = "en";
+        public string FallbackCultureName { get; set; }
 
         public Localizer()
         {
 
-        }
-
-        /// <summary>
-        /// Subscribe the ILocalizable instance to the culture changes.
-        /// This behavior is perfomed using MessagingCenter.
-        /// </summary>
-        /// <param name="localizable">ILocalizable instance to subscribe</param>
-        public void Subscribe(ILocalizable localizable)
-        {
-            MessagingCenter.Subscribe<Localizer, CultureInfo>(localizable, CULTURE_CHANGED_MESSAGE, localizable.OnCultureChanged);
-        }
-
-        /// <summary>
-        /// Unsubscribe the ILocalizable instance to the culture changes.
-        /// This behavior is perfomed using MessagingCenter.
-        /// </summary>
-        /// <param name="localizable">ILocalizable instance to unsubscribe</param>
-        public void Unsubscribe(ILocalizable localizable)
-        {
-            MessagingCenter.Unsubscribe<Localizer, CultureInfo>(localizable, CULTURE_CHANGED_MESSAGE);
         }
 
         /// <summary>
@@ -73,16 +53,13 @@ namespace LocalizedApp.Components.Localizer
             Thread.CurrentThread.CurrentCulture = cultureInfo; // Set the Thread for locale-aware methods
             Thread.CurrentThread.CurrentUICulture = cultureInfo; // Set the Thread for locale-aware methods
 
-            DependencyService.Get<ICurrentCulture>().UpdateNativeConfiguration(cultureInfo);
-
-            Trace.WriteLine("Notify culture changes to subscribed instances");
-            MessagingCenter.Send(this, CULTURE_CHANGED_MESSAGE, cultureInfo);
+            Settings.CultureName = cultureInfo.Name;
         }
         
         private void SetDefaultCulture()
         {
             var preferredCulture = DependencyService.Get<ICurrentCulture>().GetPreferredUserCulture();
-            var culture = string.IsNullOrEmpty(preferredCulture) ? FallbackCulture : preferredCulture;
+            var culture = string.IsNullOrEmpty(preferredCulture) ? FallbackCultureName : preferredCulture;
 
             var cultureBuilder = new CultureBuilder(culture);
             SetCulture(cultureBuilder.CultureInfo);

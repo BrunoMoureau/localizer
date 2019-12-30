@@ -1,26 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Text;
+﻿using System.Globalization;
 
 namespace LocalizedApp.Components.Localizer.Interfaces
 {
     public interface ILocalizer
     {
-
-        /// <summary>
-        /// Subscribe the ILocalizable instance to the culture changes.
-        /// This behavior is perfomed using MessagingCenter.
-        /// </summary>
-        /// <param name="localizable">ILocalizable instance to subscribe</param>
-        void Subscribe(ILocalizable localizable);
-
-        /// <summary>
-        /// Unsubscribe the ILocalizable instance to the culture changes.
-        /// This behavior is perfomed using MessagingCenter.
-        /// </summary>
-        /// <param name="localizable">ILocalizable instance to unsubscribe</param>
-        void Unsubscribe(ILocalizable localizable);
+        string FallbackCultureName { get; set; }
 
         /// <summary>
         /// Set the app culture (AppResources, MainThread...)

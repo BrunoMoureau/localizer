@@ -1,4 +1,5 @@
 ﻿using LocalizedApp.Components.Localizer.Interfaces;
+using LocalizedApp.Helpers;
 using LocalizedApp.Pages.Home;
 using Xamarin.Forms;
 
@@ -17,8 +18,9 @@ namespace LocalizedApp
         {
             InitializeComponent();
             
-            // Could provide culture form AppSettings here
-            DependencyService.Get<ILocalizer>().SetCulture("en-GB");
+            var localizer = DependencyService.Get<ILocalizer>();
+            localizer.FallbackCultureName = Settings.DefaultCultureName;
+            localizer.SetCulture(Settings.CultureName);
             
             MainPage = new NavigationPage(new HomePage());
         }

@@ -61,6 +61,33 @@ namespace LocalizedApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Close.
+        /// </summary>
+        public static string Alert_Cancel {
+            get {
+                return ResourceManager.GetString("Alert_Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please restart the application to apply changes..
+        /// </summary>
+        public static string Alert_RestartAppToApplyCultureChangesMessage {
+            get {
+                return ResourceManager.GetString("Alert_RestartAppToApplyCultureChangesMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Language update.
+        /// </summary>
+        public static string Alert_RestartAppToApplyCultureChangesTitle {
+            get {
+                return ResourceManager.GetString("Alert_RestartAppToApplyCultureChangesTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Your preferred culture is : en-GB.
         /// </summary>
         public static string HomePage_CurrentCultureText {

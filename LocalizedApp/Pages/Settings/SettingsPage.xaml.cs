@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
@@ -13,15 +12,36 @@ using Xamarin.Forms.Xaml;
 namespace LocalizedApp.Pages.Settings
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class SettingsPage : ILocalizable
+    public partial class SettingsPage
     {
-        public ICommand OptionTappedCommand { get; }
+        private ICommand _optionTappedCommand;
+        public ICommand OptionTappedCommand => _optionTappedCommand ?? (_optionTappedCommand = new Command<Option<string>>(option => 
+        {
+            if (option.IsSelected)
+            {
+                Trace.WriteLine("The culture option is already selected");
+                return;
+            }
+
+            var cultureInfo = new CultureInfo(option.Value);
+            if (CultureListView.ItemsSource is IEnumerable<Option<string>> cultureOptions)
+            {
+                Trace.WriteLine("Unselecting all culture options");
+                foreach (Option<string> cultureOption in cultureOptions)
+                {
+                    cultureOption.IsSelected = false;
+                }
+            }
+
+            option.IsSelected = true;
+            Trace.WriteLine("The tapped option is now selected");
+
+            DependencyService.Get<ILocalizer>().SetCulture(cultureInfo);
+        }));
 
         public SettingsPage()
         {
             InitializeComponent();
-            OptionTappedCommand = new Command<Option<string>>(OnCultureOptionSelected);
-
             FillCultureOptions();
         }
 
@@ -57,65 +77,6 @@ namespace LocalizedApp.Pages.Settings
                 ?? cultureOptions.First(o => o.Value.Contains(AppResources.Culture.Name)); // current culture is a parent (e.g. en)
 
             cultureOption.IsSelected = true;
-        }
-
-        protected override void OnParentSet()
-        {
-            base.OnParentSet();
-
-            if (Parent == null) // Page is removed from navigation stack
-            {
-                DependencyService.Get<ILocalizer>().Unsubscribe(this);
-            }
-            else // Page is added to navigation stack
-            {
-                DependencyService.Get<ILocalizer>().Subscribe(this);
-            }
-        }
-
-        public void OnCultureChanged(object sender, CultureInfo cultureInfo)
-        {
-            Trace.WriteLine($"Update culture of {nameof(SettingsPage)}");
-
-            Title = AppResources.SettingsPage_TitleText;
-            LanguageSectionLabel.Text = AppResources.SettingsPage_LanguageSectionText;
-            FormatSectionLabel.Text = AppResources.SettingsPage_FormatSectionText;
-            LanguageFormatLabel.Text = AppResources.SettingsPage_LanguageFormatText;
-            DateTimeFormatLabel.Text = $"{DateTime.Now:f}";
-
-            var numberExample = (double)Resources.Values.ElementAt(0);
-            var percentExample = (double)Resources.Values.ElementAt(1);
-            var priceExample = (double)Resources.Values.ElementAt(2);
-
-            NumberFormatLabel.Text = $"{numberExample:N}";
-            PercentFormatLabel.Text = $"{percentExample:P}";
-            PriceFormatLabel.Text = $"{priceExample:C}";
-
-            FillCultureOptions();
-        }
-
-        private void OnCultureOptionSelected(Option<string> selectedCultureOption)
-        {
-            if (selectedCultureOption.IsSelected)
-            {
-                Trace.WriteLine("The culture option is already selected");
-                return;
-            }
-
-            var cultureInfo = new CultureInfo(selectedCultureOption.Value);
-            if (CultureListView.ItemsSource is IEnumerable<Option<string>> cultureOptions)
-            {
-                Trace.WriteLine("Unselect all culture options");
-                foreach (Option<string> cultureOption in cultureOptions)
-                {
-                    cultureOption.IsSelected = false;
-                }
-            }
-
-            Trace.WriteLine("The tapped option is now selected");
-            selectedCultureOption.IsSelected = true;
-
-            DependencyService.Get<ILocalizer>().SetCulture(cultureInfo);
         }
     }
 }
