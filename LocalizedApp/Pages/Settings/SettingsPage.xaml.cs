@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Windows.Input;
 using LocalizedApp.Components.Localizer.Interfaces;
+using LocalizedApp.Helpers;
 using LocalizedApp.Models;
 using LocalizedApp.Resources;
 using Xamarin.Forms;
@@ -37,6 +38,8 @@ namespace LocalizedApp.Pages.Settings
             Trace.WriteLine("The tapped option is now selected");
 
             DependencyService.Get<ILocalizer>().SetCulture(cultureInfo);
+
+            Alert.RestartAppToApplyCultureChangesAsync();
         }));
 
         public SettingsPage()

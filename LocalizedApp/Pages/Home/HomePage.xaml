@@ -23,7 +23,10 @@
             Text="{x:Static res:AppResources.HomePage_CurrentCultureText}"
             FontSize="Body"/>
 
-        <Image>
+        <Image
+            Margin="0,20,0,0"
+            Aspect="AspectFit">
+
             <Image.Source>
                 <OnPlatform x:TypeArguments="ImageSource">
                     <On Platform="iOS, Android" Value="flag.png" />
