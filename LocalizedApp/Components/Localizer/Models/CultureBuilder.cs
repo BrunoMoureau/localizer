@@ -8,36 +8,38 @@ namespace LocalizedApp.Components.Localizer.Models
     {
         public CultureInfo CultureInfo { get; }
 
-        public CultureBuilder(string culture)
+        public CultureBuilder(string cultureName)
         {
-            if (string.IsNullOrWhiteSpace(culture))
+            if (string.IsNullOrWhiteSpace(cultureName))
             {
                 throw new ArgumentException();
             }
 
-            CultureInfo = GetCultureInfo(culture);
+            CultureInfo = GetCultureInfo(cultureName);
         }
 
-        private CultureInfo GetCultureInfo(string culture)
+        private CultureInfo GetCultureInfo(string cultureName)
         {
             // Get equivalent .NET culture
-            string dotNetCultureFormat = ConvertToDotNetFullCultureFormat(culture);
+            string dotNetFullCultureName = cultureName?.Replace('_', '-');
+            string fullCultureName = ConvertToDotNetFullCultureFormat(dotNetFullCultureName);
 
             try
             {
                 // Get CultureInfo using .NET culture format
-                return new CultureInfo(dotNetCultureFormat);
+                return new CultureInfo(fullCultureName);
             }
             catch (CultureNotFoundException)
             {
                 // Invalid .NET culture (eg. iOS "en-ES" : English in Spain)
                 // Only get and use the first part of the culture (eg. "en")
-                try
-                {
-                    string[] split = culture.Split('_', '-'); // Some culture formats use underscore as separator
-                    string twoLetterCulture = split.ElementAtOrDefault(0); // Get the first part of the culture
-                    string dotNetTwoLetterCulture = ConvertToDotNetTwoLetterCultureFormat(twoLetterCulture);
 
+                string[] split = fullCultureName.Split('-');
+                string twoLetterCulture = split.ElementAtOrDefault(0); // Get the two letters culture name
+                string dotNetTwoLetterCulture = ConvertToDotNetTwoLetterCultureFormat(twoLetterCulture);
+
+                try
+                {                    
                     return new CultureInfo(dotNetTwoLetterCulture);
                 }
                 catch (CultureNotFoundException)
@@ -48,9 +50,9 @@ namespace LocalizedApp.Components.Localizer.Models
             }
         }
 
-        private string ConvertToDotNetFullCultureFormat(string culture)
+        private string ConvertToDotNetFullCultureFormat(string cultureName)
         {
-            switch (culture)
+            switch (cultureName)
             {
                 // add more application-specific cases here (if required)
                 // ONLY use cultures that have been tested and known to work
@@ -60,20 +62,20 @@ namespace LocalizedApp.Components.Localizer.Models
                 case "ms-SG": // "Malaysian (Singapore)" not supported .NET culture
                     return "ms";
                 */
-                default: return culture;
+                default: return cultureName;
             }
         }
 
-        private string ConvertToDotNetTwoLetterCultureFormat(string twoLetterCulture)
+        private string ConvertToDotNetTwoLetterCultureFormat(string twoLetterCultureName)
         {
-            switch (twoLetterCulture)
+            switch (twoLetterCultureName)
             {
                 // add more application-specific cases here (if required)
                 // ONLY use cultures that have been tested and known to work
                 /* Examples :
                 case "gsw": return "de-CH"; // German (Switzerland)
                 */
-                default: return "en";
+                default: return twoLetterCultureName;
             }
         }
     }
