@@ -16,7 +16,7 @@ namespace LocalizedApp.Pages.Settings
     public partial class SettingsPage
     {
         private ICommand _optionTappedCommand;
-        public ICommand OptionTappedCommand => _optionTappedCommand ?? (_optionTappedCommand = new Command<Option<string>>(option => 
+        public ICommand OptionTappedCommand => _optionTappedCommand ?? (_optionTappedCommand = new Command<Option<string>>(async option => 
         {
             if (option.IsSelected)
             {
@@ -39,7 +39,7 @@ namespace LocalizedApp.Pages.Settings
 
             DependencyService.Get<ILocalizer>().SetCulture(cultureInfo);
 
-            Alert.RestartAppToApplyCultureChangesAsync();
+            await Alert.RestartAppToApplyCultureChangesAsync();
         }));
 
         public SettingsPage()

@@ -15,7 +15,7 @@ namespace LocalizedApp.Components.Localizer
 {
     public class Localizer : ILocalizer
     {
-        public string FallbackCultureName { get; set; }
+        public const string FallbackCultureName = "en-US";
 
         public Localizer()
         {
@@ -50,8 +50,8 @@ namespace LocalizedApp.Components.Localizer
             AppResources.Culture = cultureInfo; // Set the RESX for resource localization
 
             Trace.WriteLine("Update current thread culture");
-            Thread.CurrentThread.CurrentCulture = cultureInfo; // Set the Thread for locale-aware methods
-            Thread.CurrentThread.CurrentUICulture = cultureInfo; // Set the Thread for locale-aware methods
+            Thread.CurrentThread.CurrentCulture = cultureInfo; // set the thread for locale-aware methods
+            Thread.CurrentThread.CurrentUICulture = cultureInfo; // set the thread for locale-aware methods
 
             Settings.CultureName = cultureInfo.Name;
         }

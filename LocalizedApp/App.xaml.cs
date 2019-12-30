@@ -19,7 +19,6 @@ namespace LocalizedApp
             InitializeComponent();
             
             var localizer = DependencyService.Get<ILocalizer>();
-            localizer.FallbackCultureName = Settings.DefaultCultureName;
             localizer.SetCulture(Settings.CultureName);
             
             MainPage = new NavigationPage(new HomePage());

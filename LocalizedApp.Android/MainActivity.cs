@@ -1,6 +1,9 @@
-﻿using Android.App;
+﻿using System.Globalization;
+using System.Threading;
+using Android.App;
 using Android.Content.PM;
 using Android.OS;
+using LocalizedApp.Helpers;
 
 namespace LocalizedApp.Droid
 {

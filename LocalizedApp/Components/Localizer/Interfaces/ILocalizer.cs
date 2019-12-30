@@ -4,8 +4,6 @@ namespace LocalizedApp.Components.Localizer.Interfaces
 {
     public interface ILocalizer
     {
-        string FallbackCultureName { get; set; }
-
         /// <summary>
         /// Set the app culture (AppResources, MainThread...)
         /// If the given culture is invalid, the user preffered culture is used instead.

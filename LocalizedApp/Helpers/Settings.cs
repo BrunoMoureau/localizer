@@ -3,11 +3,9 @@ using Plugin.Settings.Abstractions;
 
 namespace LocalizedApp.Helpers
 {
-    internal static class Settings
+    public static class Settings
     {
         private static ISettings AppSettings => CrossSettings.Current;
-
-        public const string DefaultCultureName = "en-US";
 
         public static string CultureName
         {
