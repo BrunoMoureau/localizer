@@ -1,6 +1,5 @@
 ﻿using LocalizedApp.Components.Localizer.Interfaces.Dependencies;
 using Xamarin.Forms;
-
 using LocalizedApp.Droid.Dependencies;
 
 [assembly:Dependency(typeof(CurrentCultureService))]

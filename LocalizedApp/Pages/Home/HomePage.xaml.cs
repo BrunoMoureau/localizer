@@ -40,6 +40,9 @@ namespace LocalizedApp.Pages.Home
             GreetingsLabel.Text = AppResources.HomePage_GreetingsText;
             CurrentCultureLabel.Text = AppResources.HomePage_CurrentCultureText;
             SelectCultureButton.Text = AppResources.HomePage_SelectCultureText;
+
+            Test.Source = FlagImage.Source =
+                Device.RuntimePlatform == Device.UWP ? "Assets/Images/flag.png" : "flag.png";
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-
 using Foundation;
 using LocalizedApp.Components.Localizer.Interfaces.Dependencies;
 using Xamarin.Forms;

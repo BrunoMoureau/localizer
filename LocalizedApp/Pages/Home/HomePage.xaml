@@ -25,6 +25,18 @@
             Text="{x:Static res:AppResources.HomePage_CurrentCultureText}"
             FontSize="Body"/>
 
+        <Image x:Name="FlagImage">
+            <Image.Source>
+                <OnPlatform x:TypeArguments="ImageSource">
+                    <On Platform="iOS, Android" Value="flag.png" />
+                    <On Platform="UWP" Value="Assets/Images/flag.png" />
+                </OnPlatform>
+            </Image.Source>
+        </Image>
+
+        <Image x:Name="Test">
+        </Image>
+
         <Button 
             x:Name="SelectCultureButton"
             Margin="0,40,0,0"

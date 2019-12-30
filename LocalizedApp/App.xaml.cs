@@ -18,7 +18,7 @@ namespace LocalizedApp
             InitializeComponent();
             
             // Could provide culture form AppSettings here
-            DependencyService.Get<ILocalizer>().SetCulture("en-US");
+            DependencyService.Get<ILocalizer>().SetCulture("en-GB");
             
             MainPage = new NavigationPage(new HomePage());
         }

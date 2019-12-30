@@ -73,6 +73,8 @@ namespace LocalizedApp.Components.Localizer
             Thread.CurrentThread.CurrentCulture = cultureInfo; // Set the Thread for locale-aware methods
             Thread.CurrentThread.CurrentUICulture = cultureInfo; // Set the Thread for locale-aware methods
 
+            DependencyService.Get<ICurrentCulture>().UpdateNativeConfiguration(cultureInfo);
+
             Trace.WriteLine("Notify culture changes to subscribed instances");
             MessagingCenter.Send(this, CULTURE_CHANGED_MESSAGE, cultureInfo);
         }

@@ -1,4 +1,6 @@
-﻿namespace LocalizedApp.Components.Localizer.Interfaces.Dependencies
+﻿using System.Globalization;
+
+namespace LocalizedApp.Components.Localizer.Interfaces.Dependencies
 {
     public interface ICurrentCulture
     {
