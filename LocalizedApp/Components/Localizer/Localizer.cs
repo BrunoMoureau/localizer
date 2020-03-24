@@ -56,7 +56,7 @@ namespace LocalizedApp.Components.Localizer
             Settings.CultureName = cultureInfo.Name;
         }
         
-        private void SetDefaultCulture()
+        public void SetDefaultCulture()
         {
             var preferredCulture = DependencyService.Get<ICurrentCulture>().GetPreferredUserCulture();
             var culture = string.IsNullOrEmpty(preferredCulture) ? FallbackCultureName : preferredCulture;
